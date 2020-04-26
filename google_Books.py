@@ -92,6 +92,9 @@ def createTables(cur):
 def addToAuthorsTable(authors,cur,conn):
     a_id = 0
     for author in authors:
+        if a_id >= 20:
+            print('Retrieved 20 authors, restart to retrieve more')
+            break
         cur.execute("SELECT id FROM Authors WHERE name = ?", (author, ))
         try:
             data = cur.fetchone()[0]
@@ -113,7 +116,7 @@ def addToBooksTable(data,cur,conn):
     count = 0
     for author in data:
         if count >= 20:
-            print('Retrieved 20 items, restart to retrieve more')
+            print('Retrieved 20 books, restart to retrieve more')
             break
         for title in data[author]:
             if count >= 20:
